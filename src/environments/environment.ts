@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5000/api'
+  apiUrl: 'git remote add origin https://github.com/Yatheesh-cmd/hotelbook.git'
 };
