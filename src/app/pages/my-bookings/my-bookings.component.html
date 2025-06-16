@@ -1,0 +1,59 @@
+<div class="container py-5">
+  <h2 class="mb-4"><i class="fa-solid fa-box me-2"></i> My Bookings</h2>
+  <div *ngIf="loading" class="text-center my-5">
+    <span class="spinner-border"></span>
+  </div>
+  <div *ngIf="!loading && orders.length > 0">
+    <table class="table table-responsive table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Hotel</th>
+          <th>Total Amount</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order._id }}</td>
+          <td>
+            <div *ngFor="let item of order.items">
+              {{ item.name }} ({{ item.nights }} nights)
+            </div>
+          </td>
+          <td>₹{{ order.totalAmount.toFixed(2) }}</td>
+          <td>{{ order.status || 'Pending' }}</td>
+          <td>{{ order.createdAt | date:'shortDate' }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm" (click)="downloadCoupon(order)">Download Coupon</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p *ngIf="!loading && orders.length === 0" class="text-center mt-4">You have no bookings yet.</p>
+
+  <!-- Hidden Coupon Layout -->
+  <div #coupon id="coupon" style="position: absolute; top: -9999px; width: 350px; padding: 20px; background: #f8f9fa; border: 2px solid #007bff; border-radius: 10px; font-family: Arial, sans-serif;">
+    <div style="text-align: center; margin-bottom: 15px;">
+      <h3 style="color: #007bff; margin: 0;">Hotel Booking Coupon</h3>
+      <p style="font-size: 12px; color: #6c757d;">Valid for {{ selectedOrder?.items[0]?.nights }} nights</p>
+    </div>
+    <div style="border-top: 1px dashed #6c757d; padding-top: 10px;">
+      <p><strong>Order ID:</strong> {{ selectedOrder?._id }}</p>
+      <p><strong>Hotel:</strong> {{ selectedOrder?.items[0]?.name }}</p>
+      <p><strong>Hotel ID:</strong> {{ selectedOrder?.items[0]?.hotel_id }}</p>
+      <p><strong>Total Amount:</strong> ₹{{ selectedOrder?.totalAmount.toFixed(2) }}</p>
+      <p><strong>Status:</strong> {{ selectedOrder?.status || 'Pending' }}</p>
+      <p><strong>Date:</strong> {{ selectedOrder?.createdAt | date:'shortDate' }}</p>
+      <p><strong>Issued by:</strong> Your Company Name</p>
+    </div>
+    <div style="text-align: center; margin-top: 15px;">
+      <img *ngIf="qrCodeDataUrl" [src]="qrCodeDataUrl" style="width: 100px; height: 100px;" />
+      <p style="font-size: 10px; color: #6c757d;">Scan to verify at https://your-site.com/verify</p>
+      <p style="font-size: 10px; color: #6c757d;">Thank you for booking with us!</p>
+    </div>
+  </div>
+</div>

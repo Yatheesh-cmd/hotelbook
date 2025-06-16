@@ -1,0 +1,33 @@
+<div class="container py-5">
+  <h2 class="mb-4">Manage Testimonials</h2>
+  <div *ngIf="loading" class="text-center my-5">
+    <span class="spinner-border"></span>
+  </div>
+  <table *ngIf="!loading && testimonials.length > 0" class="table table-responsive table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Booking ID</th>
+        <th>User</th>
+        <th>Rating</th>
+        <th>Comment</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let testimonial of testimonials">
+        <td>{{ testimonial.bookingId }}</td>
+        <td>{{ testimonial.userId?.username || 'N/A' }}</td>
+        <td>{{ testimonial.rating }} / 5</td>
+        <td>{{ testimonial.comment || 'No comment' }}</td>
+        <td>{{ testimonial.createdAt | date:'shortDate' }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="deleteTestimonial(testimonial._id)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="!loading && testimonials.length === 0" class="text-center mt-4">No testimonials found</p>
+</div>

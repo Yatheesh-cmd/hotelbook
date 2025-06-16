@@ -1,0 +1,21 @@
+<div class="container py-5">
+  <div class="row mb-5">
+    <div class="col-md-12 text-center">
+      <h2 class="mb-4 fw-bold">Browse Rooms</h2>
+      <div class="d-flex justify-content-center">
+        <div class="input-group" style="max-width: 500px;">
+          <span class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input type="text" class="form-control" placeholder="Search by location" [(ngModel)]="search" (ngModelChange)="fetchHotels()">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngFor="let hotel of hotels" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+      <app-hotel-card [hotel]="hotel"></app-hotel-card>
+    </div>
+    <div *ngIf="!hotels.length" class="col-12">
+      <p class="text-muted text-center">No hotels found</p>
+    </div>
+  </div>
+</div>

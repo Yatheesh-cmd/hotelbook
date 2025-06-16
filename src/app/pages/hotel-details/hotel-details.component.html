@@ -1,0 +1,85 @@
+<div class="container-fluid py-5"> <!-- Changed to container-fluid for full width -->
+  <div *ngIf="!hotel" class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <h3 class="text-center text-muted animate-pulse">Loading...</h3>
+  </div>
+  <div *ngIf="hotel" class="row g-4">
+    <!-- Image Gallery and Additional Info Section -->
+    <div class="col-lg-6">
+      <div class="carousel-container"> <!-- Custom class for carousel -->
+        <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div *ngFor="let image of hotel.images; let i = index" class="carousel-item" [ngClass]="{'active': i === 0}">
+              <img [src]="image || 'https://via.placeholder.com/1200x600'" class="d-block w-100" style="height: 60vh; object-fit: cover;" alt="{{ hotel.name }} Image {{i + 1}}">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <!-- Thumbnail Navigation -->
+        <div class="d-flex gap-2 p-3 justify-content-start bg-light overflow-x-auto">
+          <div *ngFor="let image of hotel.images; let i = index" class="thumbnail" (click)="setActiveSlide(i)">
+            <img [src]="image || 'https://via.placeholder.com/100'" class="img-thumbnail border-0" style="width: 100px; height: 60px; object-fit: cover; cursor: pointer; transition: transform 0.2s;" [ngClass]="{'border-primary shadow': i === activeSlideIndex}" alt="Thumbnail {{i + 1}}">
+          </div>
+        </div>
+        <!-- Additional Paragraph Section -->
+        <div class="p-3 bg-white">
+          <p class="text-secondary">Immerse yourself in the vibrant culture and history of {{ hotel.location }}. Our hotel is strategically located near iconic landmarks, bustling markets, and serene retreats, making it the perfect base for your adventures.</p>
+          <p class="text-secondary">Whether you're here for a relaxing getaway or a productive business trip, {{ hotel.name }} offers a seamless blend of modern luxury and local charm. Enjoy personalized services and curated experiences tailored to your needs.</p>
+        </div>
+        <!-- Key Amenities Section -->
+        <div class="p-3 bg-white border-top">
+          <h5 class="mb-3 fw-bold">Key Amenities</h5>
+          <ul class="list-unstyled d-flex flex-wrap gap-3">
+            <li class="d-flex align-items-center"><i class="fa-solid fa-wifi me-2 text-primary"></i> Free Wi-Fi</li>
+            <li class="d-flex align-items-center"><i class="fa-solid fa-utensils me-2 text-primary"></i> Restaurant & Bar</li>
+            <li class="d-flex align-items-center"><i class="fa-solid fa-swimming-pool me-2 text-primary"></i> Outdoor Pool</li>
+            <li class="d-flex align-items-center"><i class="fa-solid fa-dumbbell me-2 text-primary"></i> Fitness Center</li>
+            <li class="d-flex align-items-center"><i class="fa-solid fa-parking me-2 text-primary"></i> Free Parking</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- Hotel Details Section -->
+    <div class="col-lg-6">
+      <div class="p-3"> <!-- Removed card classes -->
+        <h2 class="fw-bold">{{ hotel.name }}</h2>
+        <p class="text-muted mb-3"><i class="fa-solid fa-location-dot me-2"></i>{{ hotel.location }}</p>
+        <div class="d-flex align-items-center mb-4 flex-wrap gap-3">
+          <h4 class="text-primary fw-bold mb-0">₹{{ hotel.price }} /night</h4>
+          <!-- <div class="text-warning d-flex align-items-center">
+            <i class="fa-solid fa-star me-1"></i> {{ hotel.rating || '4.8' }} ({{ hotel.reviewsCount || '120' }} reviews)
+          </div> -->
+        </div>
+        <div class="mb-4">
+          <h5 class="fw-bold">About {{ hotel.name }}</h5>
+          <p class="text-secondary">{{ hotel.description || 'Experience a luxurious stay at ' + hotel.name + ', offering modern amenities and unparalleled comfort in the heart of ' + hotel.location + '.' }}</p>
+          <p class="text-secondary">Discover a perfect blend of elegance and convenience, ideal for both business and leisure travelers. Our hotel features spacious rooms, exceptional dining options, and a dedicated staff to ensure your stay is memorable.</p>
+        </div>
+        <div class="d-flex gap-3 flex-wrap mb-3">
+          <button class="btn btn-primary px-4 py-2" (click)="addToCart()" [disabled]="!hotel.isAvailable">
+            Book Now
+          </button>
+          <button class="btn btn-outline-danger px-4 py-2" (click)="addToFavorites()">
+            <i class="fa-solid fa-heart me-2"></i> Add to Favorites
+          </button>
+        </div>
+        <div class="mb-4">
+          <h5 class="fw-bold">Policies</h5>
+          <ul class="list-unstyled text-secondary">
+            <li><strong>Check-in:</strong> After 3:00 PM</li>
+            <li><strong>Check-out:</strong> Before 12:00 PM</li>
+            <li><strong>Cancellation:</strong> Free cancellation up to 48 hours before check-in. Cancellation policies may vary based on booking conditions.</li>
+            <li><strong>Pets:</strong> Pets are welcome with prior approval (additional charges may apply).</li>
+          </ul>
+        </div>
+        <p *ngIf="!hotel.isAvailable" class="text-danger fw-medium">This hotel is currently not available for booking.</p>
+      </div>
+    </div>
+  </div>
+</div>

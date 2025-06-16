@@ -1,0 +1,462 @@
+<div class="container">
+  <div class="auth-card">
+    <!-- Hotel Image Section -->
+    <div class="auth-image">
+      <img src="https://images.pexels.com/photos/189296/pexels-photo-189296.jpeg" alt="Luxury Hotel" class="hotel-img">
+      <div class="hotel-overlay">
+        <h3>Welcome Back</h3>
+        <p>Sign in to access your personalized hotel experience</p>
+      </div>
+    </div>
+
+    <!-- Login Form Section -->
+    <div class="auth-content">
+      <div class="auth-header">
+        <img src="https://cdn2.iconfinder.com/data/icons/hotel-and-restaurant-1-5/48/74-512.png" alt="Hotel Logo" class="hotel-logo">
+        <h2 class="auth-title">Sign In to Your Account</h2>
+        <p class="auth-subtitle">Access your hotel bookings and exclusive offers</p>
+      </div>
+
+      <!-- Benefits Section -->
+      <div class="auth-features">
+        <div class="feature-item">
+          <i class="fas fa-hotel"></i>
+          <span>Manage your reservations</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-concierge-bell"></i>
+          <span>24/7 concierge support</span>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-star"></i>
+          <span>Unlock member discounts</span>
+        </div>
+      </div>
+
+      <!-- Login Form -->
+      <form (ngSubmit)="handleSubmit()" class="auth-form">
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-envelope"></i> Email
+          </label>
+          <input type="email" class="form-control" [(ngModel)]="formData.email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">
+            <i class="fas fa-lock"></i> Password
+          </label>
+          <input type="password" class="form-control" [(ngModel)]="formData.password" name="password" placeholder="••••••••" required>
+        </div>
+
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="rememberMe">
+          <label class="form-check-label" for="rememberMe">
+            Remember me
+          </label>
+        </div>
+
+        <button type="submit" class="btn btn-primary auth-btn" [disabled]="loading">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
+          Sign In
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p class="auth-link">
+          Don't have an account? <a routerLink="/reg" class="link">Register here</a>
+        </p>
+
+        <div class="social-login">
+          <p>Or sign in with:</p>
+          <div class="social-icons">
+            <button class="social-btn google">
+              <i class="fab fa-google"></i>
+            </button>
+            <button class="social-btn facebook">
+              <i class="fab fa-facebook-f"></i>
+            </button>
+            <button class="social-btn twitter">
+              <i class="fab fa-twitter"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Reset default margins and ensure full viewport width */
+/* Reset default margins and ensure full viewport width */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Base Styles */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+  padding: 0;
+  margin: 0;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.auth-card {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: white;
+  border-radius: 0;
+  margin: 0;
+}
+
+/* Image Section */
+.auth-image {
+  flex: 1;
+  position: relative;
+  min-height: 100vh;
+  width: 50%;
+  overflow: hidden;
+}
+
+.hotel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hotel-overlay {
+  position: absolute;
+  bottom: 40px;
+  left: 30px;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hotel-overlay h3 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.hotel-overlay p {
+  font-size: 16px;
+  margin: 0;
+  max-width: 80%;
+}
+
+/* Content Section */
+.auth-content {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 50%;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.hotel-logo {
+  height: 50px;
+  margin-bottom: 15px;
+}
+
+.auth-title {
+  font-size: 26px;
+  color: #2c3e50;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.auth-subtitle {
+  color: #7f8c8d;
+  font-size: 15px;
+  margin: 0;
+}
+
+/* Features Section */
+.auth-features {
+  display: flex;
+  justify-content: space-between;
+  margin: 25px 0;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #34495e;
+  background: #f8f9fa;
+  padding: 10px 15px;
+  border-radius: 8px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.feature-item i {
+  color: #3498db;
+  font-size: 16px;
+}
+
+/* Form Styles */
+.auth-form {
+  margin: 20px 0;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #34495e;
+  font-weight: 500;
+}
+
+.form-label i {
+  font-size: 15px;
+  color: #7f8c8d;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e0e3e7;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  outline: none;
+}
+
+/* Checkbox */
+.form-check {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+.form-check-input {
+  margin-right: 10px;
+  accent-color: #3498db;
+}
+
+.form-check-label {
+  font-size: 13px;
+  color: #7f8c8d;
+}
+
+/* Button Styles */
+.auth-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #3498db;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.auth-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.auth-btn:disabled {
+  background-color: #bdc3c7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Footer Section */
+.auth-footer {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.auth-link {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin: 0;
+}
+
+.link {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Social Login */
+.social-login {
+  margin-top: 25px;
+}
+
+.social-login p {
+  color: #7f8c8d;
+  font-size: 14px;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.social-login p::before,
+.social-login p::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 30%;
+  background: #e0e3e7;
+  top: 50%;
+}
+
+.social-login p::before {
+  left: 0;
+}
+
+.social-login p::after {
+  right: 0;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e0e3e7;
+  background: white;
+  color: #555;
+  transition: all 0.3s;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.social-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.social-btn.google:hover {
+  background: #db4437;
+  color: white;
+  border-color: #db4437;
+}
+
+.social-btn.facebook:hover {
+  background: #4267B2;
+  color: white;
+  border-color: #4267B2;
+}
+
+.social-btn.twitter:hover {
+  background: #1DA1F2;
+  color: white;
+  border-color: #1DA1F2;
+}
+
+/* Loading Spinner */
+.spinner-border {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  vertical-align: text-bottom;
+  border: 0.2em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spinner-border 0.75s linear infinite;
+}
+
+@keyframes spinner-border {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .auth-card {
+    flex-direction: column;
+  }
+
+  .auth-image {
+    width: 100%;
+    min-height: 300px;
+  }
+
+  .auth-content {
+    width: 100%;
+    padding: 30px 20px;
+  }
+
+  .hotel-overlay {
+    bottom: 20px;
+    left: 20px;
+  }
+
+  .hotel-overlay h3 {
+    font-size: 24px;
+  }
+
+  .auth-features {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-content {
+    padding: 20px 15px;
+  }
+
+  .auth-title {
+    font-size: 22px;
+  }
+
+  .auth-subtitle {
+    font-size: 14px;
+  }
+
+  .form-control {
+    padding: 10px 12px;
+  }
+}
+</style>

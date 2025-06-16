@@ -1,0 +1,25 @@
+.container {
+  max-width: 800px;
+}
+
+.form-control, .form-control:focus {
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+img {
+  object-fit: cover;
+  width: 100%;
+  max-height: 350px;
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  margin-left: 32px;
+  margin-top: 33px;
+}
+.btn {
+  padding: 0.5rem 1rem;
+}

@@ -1,0 +1,621 @@
+<div class="container-fluid bg-gradient-primary" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+  <div class="row align-items-center py-5">
+    <div class="col-lg-6 px-5">
+      <div class="text-center text-lg-start">
+        <h1 class="display-4 fw-bold text-dark mb-4 animate__animated animate__fadeInDown">
+          <i class="fa-solid fa-hotel text-primary me-3"></i> Book Your Perfect Stay 2025
+        </h1>
+        <p class="lead text-muted mb-4 animate__animated animate__fadeIn animate__delay-1s">
+          Your gateway to luxurious and comfortable hotel experiences
+        </p>
+        <div class="border-start border-3 border-primary ps-3 animate__animated animate__fadeIn animate__delay-1s">
+          <p class="text-dark fs-5 fst-italic">
+            "A great hotel stay makes every journey unforgettable." Discover top hotels with our trusted booking platform.
+          </p>
+        </div>
+        <div class="d-flex gap-3 mt-4 animate__animated animate__fadeInUp animate__delay-2s">
+          <button class="btn btn-primary btn-lg px-4 py-2 shadow hover-grow" routerLink="/rooms">
+            Start Booking <i class="fa-solid fa-arrow-right ms-2"></i>
+          </button>
+          <button class="btn btn-outline-success btn-lg px-4 py-2 hover-grow" routerLink="/watch">
+            Watch Demo <i class="fa-solid fa-play-circle ms-2"></i>
+          </button>
+        </div>
+        <div class="mt-4 d-flex align-items-center animate__animated animate__fadeIn animate__delay-2s">
+          <div class="me-3">
+            <i class="fa-solid fa-award text-warning fa-2x"></i>
+          </div>
+          <div>
+            <small class="d-block text-muted">Recognized by</small>
+            <strong>World Hotel Awards 2025</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mt-4 mt-lg-0">
+      <div class="hero-image-container position-relative">
+        <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32" 
+             alt="Luxury hotel room" 
+             class="img-fluid rounded-3 shadow-lg floating-image" 
+             style="max-height: 500px; width: 100%; object-fit: cover;">
+        <div class="position-absolute bottom-0 start-0 bg-primary text-white p-3 rounded-end slide-in-left">
+          <i class="fa-solid fa-hotel me-2"></i> Mumbai, India - Featured Hotel
+        </div>
+        <div class="position-absolute top-0 end-0 m-3 pulse-animation">
+          <span class="badge bg-success px-3 py-2">
+            <i class="fa-solid fa-clock me-1"></i> 1 Night Stay
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+    /* Add these styles to your CSS */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes slideInLeft {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .floating-image {
+      animation: float 6s ease-in-out infinite;
+      transition: all 0.3s ease;
+    }
+    
+    .floating-image:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3) !important;
+    }
+    
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+    
+    .slide-in-left {
+      animation: slideInLeft 1s ease-out;
+    }
+    
+    .hover-grow {
+      transition: all 0.3s ease;
+    }
+    
+    .hover-grow:hover {
+      transform: scale(1.05);
+    }
+    
+    /* Add a subtle gradient overlay to the image */
+    .hero-image-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 100%);
+      border-radius: 0.3rem;
+      z-index: 1;
+    }
+    
+    
+    /* Add animation to the award icon */
+    .fa-award {
+      animation: spin 8s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotateY(0deg); }
+      100% { transform: rotateY(360deg); }
+    }
+  </style>
+  
+  <!-- Include animate.css for text animations -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<section id="popular-hotels" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Popular Hotels This Week</h2>
+      <p class="lead text-muted">Top trending hotels based on guest bookings</p>
+      <div class="d-flex justify-content-center gap-2 mt-3">
+        <span class="badge bg-secondary">Luxury</span>
+        <span class="badge bg-secondary">Budget</span>
+        <span class="badge bg-secondary">Boutique</span>
+        <span class="badge bg-secondary">Resort</span>
+      </div>
+    </div>
+    <div class="row g-4 justify-content-center">
+      <div *ngFor="let hotel of popularHotels" class="col-md-4 col-lg-3">
+        <div class="card h-100 border-0 shadow-sm hover-shadow transition-all" style="transition: transform 0.3s ease, box-shadow 0.3s ease;">
+          <div class="position-relative" style="height: 200px; overflow: hidden;">
+            <img class="card-img-top destination-image" [src]="hotel.images[0] || 'https://via.placeholder.com/200'" alt="{{ hotel.name || 'Hotel' }}" 
+                 style="height: 100%; width: 100%; object-fit: cover; transition: transform 0.3s ease;" />
+            <div class="position-absolute top-0 end-0 m-2">
+              <button class="btn btn-sm btn-light rounded-circle" (click)="addToFavorites(hotel)">
+                <i class="fa-regular fa-heart"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body bg-white rounded-bottom">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h5 class="card-title fw-bold">{{ hotel.name || 'N/A' }}</h5>
+                <p class="text-muted mb-1">
+                  <i class="fa-solid fa-map-marker-alt text-danger me-2"></i>
+                  {{ hotel.location || 'N/A' }}
+                </p>
+              </div>
+              <div class="text-end">
+                <small class="text-success fw-bold">From ₹{{ hotel.price || '5000' }}</small>
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="d-flex small mb-2">
+                <span class="text-warning me-1">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star-half-alt"></i>
+                </span>
+                <span class="text-muted">({{ hotel.rating || '4.5' }})</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="badge bg-primary">
+                  <i class="fa-solid fa-bolt me-1"></i> Trending
+                </span>
+                <button class="btn btn-sm btn-outline-primary" [routerLink]="['/hotel-details', hotel._id]" >
+                  Explore
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!popularHotels.length" class="col-12 text-center py-5">
+        <div class="alert alert-warning w-50 mx-auto">
+          <i class="fa-solid fa-exclamation-circle me-2"></i>
+          No hotels available at the moment
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <button class="btn btn-outline-primary px-4" routerLink="/rooms">
+        View All Hotels <i class="fa-solid fa-chevron-right ms-2"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+<div class="container-fluid px-0">
+  <div class="destination-banner position-relative">
+    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945" 
+         class="img-fluid w-100" 
+         style="height: 60vh; object-fit: cover;" 
+         alt="Hotel network">
+    <div class="banner-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center">
+      <div class="container">
+        <div class="bg-dark bg-opacity-75 text-white p-4 p-md-5 rounded-3" style="max-width: 600px;">
+          <h3 class="fw-bold mb-3">Explore Our Global Hotel Network</h3>
+          <p class="mb-4">With partnerships in 83 countries, we bring you authentic hotel experiences from luxury resorts to budget stays.</p>
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="d-flex align-items-center">
+                <div class="bg-primary rounded-circle p-2 me-3">
+                  <i class="fa-solid fa-hotel"></i>
+                </div>
+                <div>
+                  <div class="fw-bold">350+ Luxury Hotels</div>
+                  <small class="text-white-50">Premium stays</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex align-items-center">
+                <div class="bg-primary rounded-circle p-2 me-3">
+                  <i class="fa-solid fa-bed"></i>
+                </div>
+                <div>
+                  <div class="fw-bold">120+ Budget Hotels</div>
+                  <small class="text-white-50">Affordable comfort</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex align-items-center">
+                <div class="bg-primary rounded-circle p-2 me-3">
+                  <i class="fa-solid fa-building"></i>
+                </div>
+                <div>
+                  <div class="fw-bold">75+ Boutique Hotels</div>
+                  <small class="text-white-50">Unique experiences</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="d-flex align-items-center">
+                <div class="bg-primary rounded-circle p-2 me-3">
+                  <i class="fa-solid fa-leaf"></i>
+                </div>
+                <div>
+                  <div class="fw-bold">200+ Eco Resorts</div>
+                  <small class="text-white-50">Sustainable stays</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New: Hotel Amenities Section -->
+<section id="amenities" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Premium Amenities</h2>
+      <p class="lead text-muted">Enjoy exceptional comfort with our partner hotels</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-3 col-sm-6">
+        <div class="text-center p-4 bg-white rounded-3 shadow-sm h-100">
+          <i class="fa-solid fa-wifi fa-3x text-primary mb-3"></i>
+          <h5 class="fw-bold">Free WiFi</h5>
+          <p class="text-muted mb-0">High-speed internet in all rooms and common areas</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="text-center p-4 bg-white rounded-3 shadow-sm h-100">
+          <i class="fa-solid fa-utensils fa-3x text-primary mb-3"></i>
+          <h5 class="fw-bold">Gourmet Dining</h5>
+          <p class="text-muted mb-0">World-class restaurants with local and international cuisine</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="text-center p-4 bg-white rounded-3 shadow-sm h-100">
+          <i class="fa-solid fa-water-ladder fa-3x text-primary mb-3"></i>
+          <h5 class="fw-bold">Pool & Spa</h5>
+          <p class="text-muted mb-0">Relaxing pools and rejuvenating spa treatments</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <div class="text-center p-4 bg-white rounded-3 shadow-sm h-100">
+          <i class="fa-solid fa-dumbbell fa-3x text-primary mb-3"></i>
+          <h5 class="fw-bold">Fitness Center</h5>
+          <p class="text-muted mb-0">State-of-the-art gym facilities available 24/7</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- New: Booking Process Section -->
+<!-- <section id="booking-process" class="py-5 bg-white">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Easy 3-Step Booking</h2>
+      <p class="lead text-muted">Get your perfect room in minutes</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="text-center p-4 h-100">
+          <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+            <i class="bi bi-search fs-2 text-primary"></i>
+          </div>
+          <h4 class="fw-bold">1. Search</h4>
+          <p class="text-muted">Find hotels that match your destination, dates, and preferences</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="text-center p-4 h-100">
+          <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+            <i class="bi bi-calendar-check fs-2 text-primary"></i>
+          </div>
+          <h4 class="fw-bold">2. Compare</h4>
+          <p class="text-muted">View room types, amenities, and prices side by side</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="text-center p-4 h-100">
+          <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 80px; height: 80px;">
+            <i class="bi bi-credit-card fs-2 text-primary"></i>
+          </div>
+          <h4 class="fw-bold">3. Book & Pay</h4>
+          <p class="text-muted">Secure your reservation with our safe payment options</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- New: Seasonal Offers Section -->
+<section id="seasonal-offers" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Seasonal Specials</h2>
+      <p class="lead text-muted">Limited-time offers for your next getaway</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-header bg-primary text-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0"><i class="fa-solid fa-umbrella-beach me-2"></i> Summer Escape</h5>
+              <span class="badge bg-white text-primary">-25%</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p>Beachfront resorts with complimentary breakfast and spa credit</p>
+            <ul class="list-unstyled">
+              <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Free room upgrade</li>
+              <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Late checkout</li>
+              <li><i class="fa-solid fa-check text-success me-2"></i> Welcome drinks</li>
+            </ul>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <button class="btn btn-outline-primary w-100">View Deals</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-header bg-success text-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0"><i class="fa-solid fa-leaf me-2"></i> Eco Retreat</h5>
+              <span class="badge bg-white text-success">-15%</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p>Sustainable stays with carbon-neutral certification</p>
+            <ul class="list-unstyled">
+              <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Organic meals</li>
+              <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Nature tours</li>
+              <li><i class="fa-solid fa-check text-success me-2"></i> Yoga sessions</li>
+            </ul>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <button class="btn btn-outline-success w-100">View Deals</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="card-header bg-warning text-dark py-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="mb-0"><i class="fa-solid fa-city me-2"></i> City Break</h5>
+              <span class="badge bg-white text-warning">-20%</span>
+            </div>
+          </div>
+          <div class="card-body">
+            <p>Urban hotels with prime locations and transportation passes</p>
+            <ul class="list-unstyled">
+              <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Free museum tickets</li>
+              <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Dining credit</li>
+              <li><i class="fa-solid fa-check text-success me-2"></i> Guided tours</li>
+            </ul>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <button class="btn btn-outline-warning w-100">View Deals</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- New: Business Travel Section -->
+<section id="business-travel" class="py-5 bg-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <h2 class="fw-bold mb-4"><i class="fa-solid fa-briefcase text-primary me-2"></i> Business Travel Solutions</h2>
+        <p class="lead">Specialized services for corporate travelers and event planners</p>
+        
+        <div class="d-flex mb-3">
+          <div class="me-4">
+            <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+              <i class="fa-solid fa-calendar-days text-primary"></i>
+            </div>
+          </div>
+          <div>
+            <h5 class="fw-bold">Flexible Booking</h5>
+            <p class="text-muted mb-0">Change plans easily with our corporate-friendly policies</p>
+          </div>
+        </div>
+        
+        <div class="d-flex mb-3">
+          <div class="me-4">
+            <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+              <i class="fa-solid fa-receipt text-primary"></i>
+            </div>
+          </div>
+          <div>
+            <h5 class="fw-bold">Dedicated Invoicing</h5>
+            <p class="text-muted mb-0">Consolidated billing and detailed expense reporting</p>
+          </div>
+        </div>
+        
+        <div class="d-flex">
+          <div class="me-4">
+            <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+              <i class="fa-solid fa-users text-primary"></i>
+            </div>
+          </div>
+          <div>
+            <h5 class="fw-bold">Group Discounts</h5>
+            <p class="text-muted mb-0">Special rates for corporate accounts and bulk bookings</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm overflow-hidden">
+          <div class="row g-0">
+            <div class="col-md-6 bg-primary text-white p-4 d-flex flex-column">
+              <h4 class="fw-bold mb-3">Corporate Benefits</h4>
+              <ul class="list-unstyled mb-auto">
+                <li class="mb-2"><i class="fa-solid fa-check-circle me-2"></i> Priority support</li>
+                <li class="mb-2"><i class="fa-solid fa-check-circle me-2"></i> Meeting room credits</li>
+                <li class="mb-2"><i class="fa-solid fa-check-circle me-2"></i> Lounge access</li>
+                <li><i class="fa-solid fa-check-circle me-2"></i> Late checkout</li>
+              </ul>
+              <div class="mt-3">
+                <button class="btn btn-light btn-sm">Learn More</button>
+              </div>
+            </div>
+            <div class="col-md-6 bg-light p-4 d-flex flex-column">
+              <h4 class="fw-bold mb-3">Event Planning</h4>
+              <ul class="list-unstyled mb-auto">
+                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Venue sourcing</li>
+                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Group rates</li>
+                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i> Catering options</li>
+                <li><i class="fa-solid fa-check text-success me-2"></i> AV equipment</li>
+              </ul>
+              <div class="mt-3">
+                <button class="btn btn-primary btn-sm">Contact Us</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="why-choose-us" class="py-5 bg-white">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">Why Choose Us</h2>
+      <p class="lead text-muted">Discover what makes our platform the best choice for your travel needs</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="d-flex align-items-center">
+          <i class="fa-solid fa-globe text-primary fa-2x me-3"></i>
+          <div>
+            <h4 class="fw-bold">Global Reach</h4>
+            <p class="text-muted">Access hotels in over 80 countries with verified reviews and trusted partners.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="d-flex align-items-center">
+          <i class="fa-solid fa-shield-alt text-primary fa-2x me-3"></i>
+          <div>
+            <h4 class="fw-bold">Secure Booking</h4>
+            <p class="text-muted">Book with confidence using our secure platform with 24/7 support.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="d-flex align-items-center">
+          <i class="fa-solid fa-tags text-primary fa-2x me-3"></i>
+          <div>
+            <h4 class="fw-bold">Best Price Guarantee</h4>
+            <p class="text-muted">Find the best deals with our price match promise and exclusive offers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="download" class="py-5 bg-white">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4 mb-md-0">
+        <div class="position-relative">
+          <img src="https://img.freepik.com/premium-vector/download-app-now-banner-with-smartphone-hand-download-our-app-online-store-ui-design_476325-2167.jpg" 
+               class="img-fluid rounded-3 shadow" 
+               alt="Download our app">
+          <div class="position-absolute bottom-0 start-0 w-100 p-3 bg-white bg-opacity-90">
+            <div class="text-center">
+              <div class="d-flex justify-content-center gap-3">
+                <div class="text-center">
+                  <div class="fw-bold">1M+</div>
+                  <small class="text-muted">Downloads</small>
+                </div>
+                <div class="text-center">
+                  <div class="fw-bold">4.8</div>
+                  <small class="text-muted">App Rating</small>
+                </div>
+                <div class="text-center">
+                  <div class="fw-bold">24/7</div>
+                  <small class="text-muted">Support</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h2 class="fw-bold mb-4">Download Our App</h2>
+        <p class="fs-5 mb-4">Book your stay on the go with our mobile app, available for iOS and Android.</p>
+        <div class="d-flex gap-3">
+          <button class="btn btn-primary btn-lg px-4 py-2">
+            Download Now <i class="fa-solid fa-download ms-2"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section id="testimonials" class="py-5 bg-light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="fw-bold">What Our Guests Say</h2>
+      <p class="lead text-muted">Hear from travelers who found their perfect stay with us</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="d-flex align-items-center">
+          <i class="fa-solid fa-quote-left text-primary fa-2x me-3"></i>
+          <div>
+            <h4 class="fw-bold">Amazing Experience</h4>
+            <p class="text-muted">"The booking process was seamless, and the hotel exceeded expectations!"</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="d-flex align-items-center">
+          <i class="fa-solid fa-quote-left text-primary fa-2x me-3"></i>
+          <div>
+            <h4 class="fw-bold">Fantastic Support</h4>
+            <p class="text-muted">"Customer service was quick to resolve my query at midnight!"</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="d-flex align-items-center">
+          <i class="fa-solid fa-quote-left text-primary fa-2x me-3"></i>
+          <div>
+            <h4 class="fw-bold">Unbeatable Prices</h4>
+            <p class="text-muted">"Found a luxury hotel at a price that fit my budget perfectly."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+}
+.card:hover .destination-image {
+  transform: scale(1.05);
+}
+</style>

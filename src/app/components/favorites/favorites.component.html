@@ -1,0 +1,57 @@
+<div class="p-4 bg-white rounded-3 shadow-sm">
+  <div class="d-flex align-items-center mb-4">
+    <i class="fa-solid fa-heart text-danger me-3 fs-5"></i>
+    <h4 class="h5 mb-0 text-dark">Your Favorites ({{ favorites.length }})</h4>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="favorites.length === 0" class="text-center py-5">
+    <i class="far fa-heart text-muted fs-1 mb-3 opacity-25"></i>
+    <p class="text-muted mb-1">Your favorites list is empty</p>
+    <p class="text-muted small">Start adding hotels to see them here</p>
+  </div>
+
+  <!-- Favorites Grid -->
+  
+  <div *ngIf="favorites.length > 0" class="row g-4">
+    <div *ngFor="let item of favorites" class="col-md-6 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm hover-shadow-lg transition-all">
+        <!-- Hotel Image -->
+        <div class="card-img-top overflow-hidden d-flex justify-content-center align-items-center" style="height: 150px;">
+          <img [src]="item.images[0]" 
+               alt="{{ item.name }}"
+               style="max-width: 80%; height: 100%; object-fit: cover; border-radius: 8px;"
+               class="img-fluid">
+        </div>
+        
+        <div class="card-body p-4 d-flex flex-column">
+          <div class="d-flex justify-content-between mb-3">
+            <h5 class="card-title mb-0 text-truncate pe-2">{{ item.name }}</h5>
+            <span class="badge rounded-pill bg-opacity-10 text-danger">
+              <i class="fas fa-heart me-1"></i> Favorite
+            </span>
+          </div>
+          
+          <!-- Rating (optional) -->
+          
+          <div class="d-flex align-items-center mb-4">
+            <span class="h4 text-dark mb-0">₹{{ item.price.toFixed(2) }}</span>
+            <span class="text-muted ms-1 small">/ night</span>
+          </div>
+          
+          <div class="d-flex gap-2 mt-auto">
+            <button class="btn btn-primary flex-grow-1 d-flex align-items-center justify-content-center"
+                    (click)="addToCart(item)">
+              <i class="fas fa-calendar-check me-2"></i>
+              Book Now
+            </button>
+            <button class="btn btn-outline-dark px-3"
+                    (click)="removeFromFavorites(item._id)">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

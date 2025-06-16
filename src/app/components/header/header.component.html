@@ -1,0 +1,66 @@
+<nav class="navbar navbar-expand-lg fixed-top shadow-sm" style="background: linear-gradient(to right, #695ee1, #1e7e34);">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand text-white d-flex align-items-center" routerLink="/">
+      <i class="fa-solid fa-hotel fa-lg me-2"></i>
+      <div>
+        <h4 class="mb-0">Hotelfire</h4>
+        <small class="text-light opacity-75">Your Home Away From Home</small>
+      </div>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <form class="d-flex mx-auto my-2" style="max-width: 450px;">
+        <input class="form-control me-2 rounded-pill" type="search" placeholder="Find a room..." aria-label="Search" [(ngModel)]="searchQuery" [ngModelOptions]="{standalone: true}" (ngModelChange)="searchRooms()">
+        <button class="btn btn-light rounded-pill" type="button" (click)="searchRooms()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </form>
+      <ul class="navbar-nav ms-auto align-items-center gap-2">
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/rooms">Rooms</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/contact">Contact</a>
+        </li>
+        <li class="nav-item dropdown">
+          <button class="btn btn-outline-light rounded-pill d-flex align-items-center" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <span class="me-2">{{ user || 'Account' }}</span>
+            <i class="fa-solid fa-user"></i>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+            <ng-container *ngIf="user && role === 'user'">
+              <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
+              <li><a class="dropdown-item" routerLink="/checkout">Checkout</a></li>
+              <li><a class="dropdown-item" routerLink="/saved-rooms">Saved Rooms</a></li>
+              <li><a class="dropdown-item" routerLink="/my-bookings">My Bookings</a></li> <!-- Added My Bookings -->
+              <li><hr class="dropdown-divider"></li>
+              <li><button class="dropdown-item text-danger" (click)="logout()">Logout <i class="fa-solid fa-sign-out-alt ms-2"></i></button></li>
+            </ng-container>
+            <ng-container *ngIf="user && role === 'admin'">
+              <li><a class="dropdown-item" routerLink="/admin/dashboard">Dashboard</a></li>
+              <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
+              <li><a class="dropdown-item" routerLink="/saved-rooms">Saved Rooms</a></li>
+              <li><a class="dropdown-item" routerLink="/admin/ordered-bookings">Ordered Bookings</a></li>
+              <li><a class="dropdown-item" routerLink="/admin/testimonials">Testimonials</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><button class="dropdown-item text-danger" (click)="logout()">Logout <i class="fa-solid fa-sign-out-alt ms-2"></i></button></li>
+            </ng-container>
+            <ng-container *ngIf="!user">
+              <li><a class="dropdown-item" routerLink="/login">Sign In</a></li>
+              <li><a class="dropdown-item" routerLink="/reg">Sign Up</a></li>
+            </ng-container>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div style="height: 70px;"></div>

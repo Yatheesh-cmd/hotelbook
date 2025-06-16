@@ -1,0 +1,38 @@
+<div class="container py-5">
+  <h2 class="mb-4">Admin Dashboard</h2>
+  <div class="row">
+    <div class="col">
+      <h4 class="mb-3">Manage Hotels</h4>
+      <button class="btn btn-outline-primary mb-3" (click)="navigateToAddRoom()">Add Hotel</button>
+      <div *ngIf="loading" class="text-center my-5">
+        <span class="spinner-border"></span>
+      </div>
+      <table *ngIf="!loading && hotels.length > 0" class="table table-responsive table-striped table-bordered table-hover mt-3">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Price/Night</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let hotel of hotels">
+            <td>{{ hotel.name }}</td>
+            <td>{{ hotel.location }}</td>
+            <td>₹{{ hotel.price }}</td>
+            <td>
+              <button class="btn btn-outline-primary btn-sm" (click)="navigateToEditRoom(hotel._id)">
+                <i class="fa-solid fa-edit"></i>
+              </button>
+              <button class="btn btn-danger btn-sm ms-2" (click)="deleteHotel(hotel._id)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="!loading && hotels.length === 0" class="text-center mt-4">No hotels available</p>
+    </div>
+  </div>
+</div>

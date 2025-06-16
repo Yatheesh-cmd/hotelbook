@@ -1,1 +1,50 @@
+/* Import Toastr styles first */
+@import 'ngx-toastr/toastr';
+
 /* You can add global styles to this file, and also import other style files */
+/* Global styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+}
+
+.navbar-camera {
+  background: linear-gradient(to right, #695ee1, #1e7e34);
+}
+
+.card-shadow {
+  transition: transform 0.2s;
+}
+
+.card-shadow:hover {
+  transform: translateY(-5px);
+}
+
+.btn-camera {
+  background-color: #695ee1;
+  border-color: #695ee1;
+  color: white;
+}
+
+.btn-camera:hover {
+  background-color: #5a4fc2;
+  border-color: #5a4fc2;
+}
+
+.text-camera {
+  color: #1e7e34;
+}
+
+.hero-image-container img {
+  max-height: 500px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}

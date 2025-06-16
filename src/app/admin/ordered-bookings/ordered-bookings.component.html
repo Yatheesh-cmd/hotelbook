@@ -1,0 +1,49 @@
+<div class="container py-5">
+  <h2 class="mb-4">Ordered Bookings</h2>
+  <div *ngIf="loading" class="text-center my-5">
+    <span class="spinner-border"></span>
+  </div>
+  <table *ngIf="!loading && bookings.length > 0" class="table table-responsive table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Order ID</th>
+        <th>User</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Hotel</th>
+        <th>Total Amount</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of bookings">
+        <td>{{ booking._id }}</td>
+        <td>{{ booking.userId?.username || 'N/A' }}</td>
+        <td>{{ booking.userId?.email || 'N/A' }}</td>
+        <td>{{ booking.userId?.phone || 'N/A' }}</td>
+        <td>
+          <div *ngFor="let item of booking.items">
+            {{ item.name }} ({{ item.nights }} nights)
+          </div>
+        </td>
+        <td>₹{{ booking.totalAmount.toFixed(2) }}</td>
+        <td>
+          <select class="form-select" [(ngModel)]="booking.status" (change)="updateStatus(booking._id, $event)">
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </td>
+        <td>{{ booking.createdAt | date:'shortDate' }}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="deleteBooking(booking._id)">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="!loading && bookings.length === 0" class="text-center mt-4">No bookings found</p>
+</div>

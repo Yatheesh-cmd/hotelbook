@@ -1,0 +1,39 @@
+<div class="p-4 bg-white shadow-sm rounded">
+  <h4><i class="fa-solid fa-cart-shopping me-2"></i> Your Cart ({{ cart.length }})</h4>
+  <div *ngIf="cart.length === 0" class="text-muted text-center my-4">Your cart is empty</div>
+  <div *ngIf="cart.length > 0">
+    <table class="table table-responsive table-striped table-bordered table-hover align-middle">
+      <thead>
+        <tr>
+          <th>Hotel</th>
+          <th>Price/Night</th>
+          <th>Nights</th>
+          <th>Total</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cart">
+          <td>{{ item.name }}</td>
+          <td>₹{{ (item.price || 0).toFixed(2) }}</td> <!-- Fallback to 0 if price is undefined -->
+          <td>
+            <button class="btn btn-outline-primary btn-sm me-2" style="border-radius: 50%; width: 32px; height: 32px;" (click)="changeNights(item._id, -1)">-</button>
+            <span class="mx-2">{{ item.nights || 1 }}</span>
+            <button class="btn btn-outline-primary btn-sm" style="border-radius: 50%; width: 32px; height: 32px;" (click)="changeNights(item._id, 1)">+</button>
+          </td>
+          <td>₹{{ ((item.price || 0) * (item.nights || 1)).toFixed(2) }}</td> <!-- Fallback for price and nights -->
+          <td>
+            <button class="btn btn-outline-danger btn-sm" style="border-radius: 20px;" (click)="removeFromCart(item._id)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex justify-content-between align-items-center mt-4">
+      <h5>Total: ₹{{ total.toFixed(2) }}</h5>
+      <button class="btn btn-success" [disabled]="loading" (click)="checkout()">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+        Checkout
+      </button>
+    </div>
+  </div>
+</div>

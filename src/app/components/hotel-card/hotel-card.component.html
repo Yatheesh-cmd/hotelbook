@@ -1,0 +1,20 @@
+<div class="card card-shadow h-100" style="border-radius: 12px; overflow: hidden;">
+  <img [src]="hotel.images[0] || 'https://via.placeholder.com/150'" class="card-img-top" style="height: 150px; object-fit: cover;" alt="{{ hotel.name || 'Hotel' }}">
+  <div class="card-body">
+    <h5 class="card-title">{{ hotel.name || 'N/A' }}</h5>
+    
+    <p class="card-text">{{ getTruncatedDescription() }}</p>
+
+    <p class="card-text"><strong>Location:</strong> {{ hotel.location || 'N/A' }}</p>
+    <p class="card-text"><strong>Price/Night:</strong> ₹{{ hotel.price || 0 }}</p>
+
+    <div class="d-flex gap-2 mb-2">
+      <button class="btn btn-primary" (click)="addToCart()" [disabled]="!hotel.isAvailable">
+        Book Now
+      </button>
+      <button class="btn btn-outline-danger" (click)="addToFavorites()">
+        <i class="fa-solid fa-heart me-2"></i> Favorites
+      </button>
+    </div>
+  </div>
+</div>

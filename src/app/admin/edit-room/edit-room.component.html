@@ -1,0 +1,53 @@
+<div class="container-fluid px-5 py-5">
+  <h2 class="mb-4 fw-bold">Edit Hotel</h2>
+  <div class="d-flex align-items-start">
+    <div class="col-md-8">
+      <form>
+        <label for="image1" class="form-label">Image URL 1</label>
+        <input type="text" class="form-control form-control-lg w-100 mb-3" id="image1" placeholder="Image URL 1" [(ngModel)]="localHotel.images[0]" name="image1">
+
+        <label for="image2" class="form-label">Image URL 2</label>
+        <input type="text" class="form-control form-control-lg w-100 mb-3" id="image2" placeholder="Image URL 2" [(ngModel)]="localHotel.images[1]" name="image2">
+
+        <label for="image3" class="form-label">Image URL 3</label>
+        <input type="text" class="form-control form-control-lg w-100 mb-3" id="image3" placeholder="Image URL 3" [(ngModel)]="localHotel.images[2]" name="image3">
+
+        <label for="image4" class="form-label">Image URL 4</label>
+        <input type="text" class="form-control form-control-lg w-100 mb-3" id="image4" placeholder="Image URL 4" [(ngModel)]="localHotel.images[3]" name="image4">
+
+        <label for="name" class="form-label">Hotel Name</label>
+        <input type="text" class="form-control form-control-lg w-100 mb-3" id="name" placeholder="Hotel Name" [(ngModel)]="localHotel.name" name="name" required>
+
+        <label for="location" class="form-label">Location</label>
+        <input type="text" class="form-control form-control-lg w-100 mb-3" id="location" placeholder="Location" [(ngModel)]="localHotel.location" name="location" required>
+
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control form-control-lg w-100 mb-3" id="description" rows="4" placeholder="Description" [(ngModel)]="localHotel.description" name="description"></textarea>
+
+        <label for="price" class="form-label">Price per Night</label>
+        <input type="number" class="form-control form-control-lg w-100 mb-3" id="price" placeholder="Price per Night" [(ngModel)]="localHotel.price" name="price" required>
+
+        <label for="isAvailable" class="form-label">Availability</label>
+        <select class="form-control form-control-lg w-100 mb-3" id="isAvailable" [(ngModel)]="localHotel.isAvailable" name="isAvailable" required>
+          <option [value]="true">Available</option>
+          <option [value]="false">Non-Available</option>
+        </select>
+
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-outline-dark me-3 px-4" (click)="goBack()">Cancel</button>
+          <button type="button" class="btn btn-warning px-5" (click)="updateHotel()" [disabled]="loading">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+            Update Hotel
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <div *ngFor="let image of localHotel.images; let i = index" class="col-6 mb-3">
+          <img [src]="image || 'https://via.placeholder.com/300x150'" class="img-fluid rounded" alt="Preview {{i + 1}}">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
